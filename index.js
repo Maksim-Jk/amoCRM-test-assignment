@@ -15,6 +15,7 @@ const loading = document.getElementById('loading');
 
 async function getDeals(page = 1, limit = 2) {
     loading.style.display = 'block';
+    dealsBody.innerHTML = '';
     const currentTime = Date.now();
     const timeDiff = currentTime - lastFetchTime;
 
@@ -42,7 +43,9 @@ async function getDeals(page = 1, limit = 2) {
         updatePagination();
         loading.style.display = 'none';
     } catch (error) {
+        loading.style.display = 'none';
         console.error('Error fetching data:', error);
+        throw error;
     }
 }
 
@@ -72,8 +75,9 @@ function updatePagination() {
     paginationPage.innerHTML = page;
 }
 
+const dealsBody = document.getElementById('dealsBody');
+
 function renderDeals(data = dealsData) {
-    const dealsBody = document.getElementById('dealsBody');
     if (!data || data.length === 0) {
         dealsBody.innerHTML = '<tr><td colspan="5" class="text-center">Ничего не найдено</td></tr>';
         return;
@@ -93,7 +97,13 @@ function renderDeals(data = dealsData) {
 }
 
 async function updateDeals(page, limit) {
-    await getDeals(page, limit);
+    try {
+        await getDeals(page, limit);
+    } catch (error) {
+        console.error('Error rendering deals:', error);
+        dealsBody.innerHTML = `<tr><td colspan="5" class="text-center">Ошибка! ${error}</td></tr>`;
+        return
+    }
     renderDeals();
 }
 
