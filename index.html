@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сделки amoCRM</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <h1 class="mt-5">Сделки amoCRM</h1>
+    <div class="row mt-3">
+        <div class="col-md-6 col-sm-12 mb-3">
+            <label for="pageSize">Размер страницы:</label>
+            <select id="pageSize" class="form-control">
+                <option value="2">2</option>
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="all">Все</option>
+            </select>
+        </div>
+        <div class="col-md-6 col-sm-12 mb-3">
+            <label for="sort">Сортировка:</label>
+            <select id="sort" class="form-control">
+                <option value="name">По названию</option>
+                <option value="budget-asc">По бюджету (возрастание)</option>
+                <option value="budget-desc">По бюджету (убывание)</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 d-flex justify-content-end align-items-end">
+            <div class="pagination d-flex flex-wrap gap-2 align-items-center">
+                <button id="prevPage" class="btn btn-primary">Назад</button>
+                <button id="nextPage" class="btn btn-primary">Вперед</button>
+                <button id="firstPage" class="btn btn-primary">Первая</button>
+                <div>
+                    <label for="paginationPage">Страница:</label>
+                    <div id="paginationPage" class="btn btn-light">1</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="overflow-auto">
+        <table class="table mt-3">
+            <thead>
+            <tr>
+                <th class="text-center">ID сделки</th>
+                <th class="text-center">Название</th>
+                <th class="text-center">Бюджет</th>
+                <th class="text-center">Дата создания</th>
+                <th class="text-center">Ответственный</th>
+            </tr>
+            </thead>
+            <tbody id="dealsBody">
+            </tbody>
+        </table>
+        <div class="text-center" id="loading">Loading...</div>
+    </div>
+</div>
+<script src="index.js"></script>
+</body>
+</html>
