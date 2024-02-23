@@ -9,13 +9,16 @@ let page = 1;
 let linksData = {};
 let dealsData = [];
 let isAllPaginationDisabled = false;
+let resetLoadingData = true;
 
 let isLoading = false;
 const loading = document.getElementById('loading');
 
 async function getDeals(page = 1, limit = 2) {
     loading.style.display = 'block';
-    dealsBody.innerHTML = '';
+    if (resetLoadingData) {
+        dealsBody.innerHTML = '';
+    }
     const currentTime = Date.now();
     const timeDiff = currentTime - lastFetchTime;
 
@@ -123,6 +126,8 @@ pageSizeSelect.addEventListener('change', () => {
 async function getDealsAll() {
     let allDeals = [];
     isAllPaginationDisabled = true;
+    resetLoadingData = false;
+    dealsBody.innerHTML = '';
     let counter = 1;
     await getDeals(1, limit);
     if (dealsData.length > 0) {
@@ -139,6 +144,7 @@ async function getDealsAll() {
     dealsData = allDeals;
     linksData = {};
     isAllPaginationDisabled = false;
+    resetLoadingData = true;
     page = 1;
     updatePagination();
 }
